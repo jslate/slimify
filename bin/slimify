@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+require 'slimify'
+puts Slimify.slimify(ARGV)
