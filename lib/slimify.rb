@@ -43,7 +43,7 @@ class Slimify
 
   def self.run_command(cmd)
     puts "cmd: #{cmd}"
-    puts "Command #{cmd} failed: #{$!}" unless system(cmd) == 0
+    puts "Command #{cmd} failed: #{$!}" unless system(cmd)
   end
 
 end
