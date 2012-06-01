@@ -5,8 +5,8 @@ class Slimify
       self.pre_clean(file)
       haml_file = self.generate_haml(file)
       self.generate_slim(haml_file)
-      `rm #{haml_file}`
-      `mv #{file} #{file}.old`
+      run_command "rm #{haml_file}"
+      run_command "mv #{file} #{file}.old"
     end
   end
   
@@ -29,14 +29,21 @@ class Slimify
 
   def self.generate_haml(file)
     haml_file_name = file.sub(/\.erb$/, '.haml')
-    `html2haml -e #{file} #{haml_file_name}`
+    run_command "html2haml -e #{file} #{haml_file_name}"
     haml_file_name
   end
 
   def self.generate_slim(haml_file)
     slim_file_name = haml_file.sub(/\.haml$/, '.slim')
-    `haml2slim #{haml_file} #{slim_file_name}`
+    run_command "haml2slim #{haml_file} #{slim_file_name}"
     slim_file_name
+  end
+
+  private
+
+  def run_command(cmd)
+    puts "cmd: #{cmd}"
+    puts "Command #{cmd} failed: #{$!}" unless system(cmd) == 0
   end
 
 end
